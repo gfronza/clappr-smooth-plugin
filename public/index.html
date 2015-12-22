@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <script type="text/javascript" charset="utf-8" src="/node_modules/clappr/dist/clappr.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/dist/smooth.js"></script>
+        <title>Smooth Test Page</title>
+        <script type="text/javascript" charset="utf-8">
+            window.onload = function() {
+                var player = new Clappr.Player({
+                    sources: ['http://192.241.144.77/eventialsVOD/_definst_/amlst:NDE/NDE1MTU7NDY2MA==/Manifest'],
+                    parentId: '#player-wrapper',
+                    plugins: {
+                        playback: [Smooth]
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="player-wrapper">
+        </div>
+    </body>
+</html>
