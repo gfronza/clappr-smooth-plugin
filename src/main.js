@@ -12,22 +12,25 @@ export default class Smooth extends HTML5Video {
   get name() { return 'smooth' }
 
   constructor(options) {
+      // plugins have to be registered before invoking the parent's constructor
+      // because it's where the source of video tag is set.
+      Smooth._registerPlugins()
+
       super(options)
-      this.registerPlugins();
   }
+}
 
-  registerPlugins() {
-      try {
-          var classId = "Microsoft.Media.AdaptiveStreaming.SmoothByteStreamHandler"
-          var extension = ".ism"
-          var plugins = new Windows.Media.MediaExtensionManager();
+Smooth._registerPlugins = function() {
+    try {
+        var classId = "Microsoft.Media.AdaptiveStreaming.SmoothByteStreamHandler"
+        var extension = ".ism"
+        var plugins = new Windows.Media.MediaExtensionManager();
 
-          MIMETYPES.forEach((mimeType, index) => plugins.registerByteStreamHandler(classId, extension, mimeType))
-      }
-      catch (e) {
-          Log.error("Error registering smooth streaming plugins")
-      }
-  }
+        MIMETYPES.forEach((mimeType, index) => plugins.registerByteStreamHandler(classId, extension, mimeType))
+    }
+    catch (e) {
+        Log.error("Error registering smooth streaming plugins")
+    }
 }
 
 Smooth.canPlay = function(resourceUrl, mimeType) {
